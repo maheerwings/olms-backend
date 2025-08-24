@@ -43,4 +43,18 @@ notifyUsers();
 removeUnverifiedAccounts();
 connection();
 
+// ✅ Root route for sanity check
+app.get("/", (req, res) => {
+  res.json({ status: "ok", message: "Backend API is live 🚀" });
+});
+
+// ✅ Catch-all 404 route for undefined paths
+app.all("*", (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `Route ${req.originalUrl} not found on this server`,
+  });
+});
+
+
 app.use(errorMiddleware);
